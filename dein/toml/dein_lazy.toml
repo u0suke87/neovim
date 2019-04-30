@@ -33,15 +33,16 @@ on_ft = ['c', 'cpp','py', 'go']
     # シンボルカラムを表示したままにする
     # 保存時に整形してくれる
     # 補完してくれる
-    # エラー行に表示するマーク
     # エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
+    # 以下、key mapping
+    # Ctrl + kで次の指摘へ、Ctrl + jで前の指摘へ移動
 hook_add = '''
     let g:ale_sign_column_always = 1
     let g:ale_fix_on_save = 1
     let g:ale_completion_enabled = 1
-    let g:ale_sign_error = '⨉'
-    let g:ale_sign_warning = '⚠'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+    nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+    nmap <silent> <C-j> <Plug>(ale_next_wrap)
 '''
 
 [[plugins]]
@@ -81,4 +82,5 @@ hook_add = '''
       \ 'cpp': ['clangd']
       \ }
   let g:LanguageClient_loadSettings = 1
+  let g:LanguageClient_diagnosticsEnable = 0
 '''
