@@ -36,7 +36,7 @@ augroup END
 nnoremap <C-n> :NERDTreeToggle<CR>
 
 " vim-cheatsheet
-nnoremap <Leader>c :Cheet<CR>
+nnoremap <Leader>c :Cheat<CR>
 
 " vim-gitgutter
 nnoremap <Leader>gg :GitGutterToggle<CR>
