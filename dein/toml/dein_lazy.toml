@@ -73,7 +73,7 @@ rev = 'next'
   # nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
   # nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
   # 以下、hook_add内に追加で、正常動作しない際のlog確認
-  # let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
+  # let g:LanguageClient_loggingFile = expand('~/.config/nvim/LanguageClient.log')
 hook_add = '''
   set hidden
   let g:LanguageClient_autoStart = 1

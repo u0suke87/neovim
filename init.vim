@@ -1,7 +1,11 @@
 "dein Scripts-----------------------------
+"vi互換のinactivate
 if &compatible
-  set nocompatible               " Be iMproved
+  set nocompatible 
 endif
+" For loading keymaps.vim 
+set runtimepath+=$HOME/.config/nvim
+runtime! keymaps.vim
 
 " Required:
 set runtimepath+=$HOME/.config/nvim/dein/repos/github.com/Shougo/dein.vim 
@@ -47,16 +51,6 @@ if dein#check_install()
 endif
 
 "End dein Scripts-------------------------
-let g:quickrun_config = get(g:, 'quickrun_config', {})
-let g:quickrun_config._ = {
-      \ 'runner'    : 'vimproc',
-      \ 'runner/vimproc/updatetime' : 60,
-      \ 'outputter' : 'error',
-      \ 'outputter/error/success' : 'buffer',
-      \ 'outputter/error/error'   : 'quickfix',
-      \ 'outputter/buffer/split'  : ':rightbelow 8sp',
-      \ 'outputter/buffer/close_on_empty' : 1,
-      \ }
 
 "タブ入力を空白に変更"
 set expandtab
@@ -69,6 +63,9 @@ set softtabstop=2
 set autoindent
 "画面を縦分割する際に右に開く"
 set splitright
+"画面を横分割する際に下に開く"
+set splitbelow
+
 set smartindent
 "行数表示"
 set number
