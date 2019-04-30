@@ -2,30 +2,32 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'thinca/vim-quickrun'
-
-[[plugins]]
 repo = 'Shougo/vimproc.vim'
 build = 'make'
 
 [[plugins]]
+repo = 'thinca/vim-quickrun'
+
+
+[[plugins]]
 repo = 'vim-airline/vim-airline'
+    # 以下、hook_addで設定している項目上から
+    # タブラインの表示
+    # （タブが一個の場合）バッファのリストをタブラインに表示する機能をオフ
+    # 0でそのタブで開いてるウィンドウ数、1で左のタブから連番
+    # パワーラインフォントの使用
+    # aleの表示
+    # Do not collapse the status line while having multiple windows
+    # tagbarの表示
+    # virtualenvを有効
 hook_add = '''
-    " タブラインの表示
     let g:airline#extensions#tabline#enabled = 1
-    " （タブが一個の場合）バッファのリストをタブラインに表示する機能をオフ
     let g:airline#extensions#tabline#show_buffers = 1
-    " 0でそのタブで開いてるウィンドウ数、1で左のタブから連番
     let g:airline#extensions#tabline#tab_nr_type = 1
-    " パワーラインフォントの使用
     let g:airline_powerline_fonts = 1
-    " aleの表示
     let g:airline#extensions#ale#enabled = 1
-    " Do not collapse the status line while having multiple windows
     let g:airline_inactive_collapse = 1
-    " tagbarの表示
     let g:airline#extensions#tagbar#enabled = 1
-    " virtualenvを有効
     let g:airline#extensions#virtualenv#enabled = 1
 '''
 

@@ -13,9 +13,10 @@ if dein#load_state($HOME . '/.config/nvim/dein')
  " let g:dein#cache_directory = $HOME . '/.cache/dein'
 
 "  " Python2 support
-"  let g:python_host_prog = $PYENV_ROOT.'/Users/yusuke_n/.pyenv/shims/python2.7'
+  let g:loaded_python_provider = 1
   " Python3 support
-  let g:python3_host_prog = $PYENV_ROOT.'/versions/anaconda3-5.2.0/bin/python'
+"  let g:python3_host_prog = $PYENV_ROOT.'/versions/anaconda3-5.2.0/bin/python3'
+  let g:python3_host_prog = '/usr/local/bin/python3'
 
   " dein begin
   call dein#begin($HOME . '/.config/nvim/dein')

@@ -1,79 +1,84 @@
 [[plugins]]
-repo = "Shougo/deoplete.nvim"
-on_event = "InsertCharPre"
-hook_source = """
+repo = 'Shougo/deoplete.nvim'
+on_event = 'InsertCharPre'
+hook_source = '''
   let g:deoplete#enable_at_startup = 1
-  let g:deoplete#auto_complete_delay = 0
-  let g:deoplete#auto_complete_start_length = 1
-  let g:deoplete#enable_camel_case = 0
-  let g:deoplete#enable_ignore_case = 0
-  let g:deoplete#enable_refresh_always = 0
-  let g:deoplete#enable_smart_case = 1
-  let g:deoplete#file#enable_buffer_path = 1
-  let g:deoplete#max_list = 10000
-  set completeopt-=preview
-  " autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-"""
+  call deoplete#custom#option({
+    \ 'auto_complete_delay': 0,
+    \ }) 
+  call deoplete#custom#source(
+    \ 'LanguageClient',
+    \ 'min_pattern_lenght',
+    \ 2) 
+'''
+
+#[[plugins]]
+#repo = 'zchee/deoplete-clang'
+#on_ft = 'cpp'
+#depends = 'deoplete.nvim'
+#hook_add = '''
+#  let g:deoplete#sources#clang#libclang_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+#  let g:deoplete#sources#clang#clang_header='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang'
+#'''
 
 [[plugins]]
-repo = "zchee/deoplete-clang"
-on_ft = "cpp"
-depends = "deoplete.nvim"
-hook_add = """
-let g:deoplete#sources#clang#libclang_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
-let g:deoplete#sources#clang#clang_header='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang'
-"""
+repo = 'Shougo/neoinclude.vim'
+on_ft = ['c', 'cpp']
+depends = 'deoplete.nvim'
 
 [[plugins]]
-repo = "Shougo/neoinclude.vim"
-on_ft = ["c", "cpp"]
-depends = "deoplete.nvim"
-
-[[plugins]]
-repo = "w0rp/ale"
-on_ft = ["c", "cpp","py", "go"]
+repo = 'w0rp/ale'
+on_ft = ['c', 'cpp','py', 'go']
+    # 以下、hook_addで設定している項目上から
+    # シンボルカラムを表示したままにする
+    # 保存時に整形してくれる
+    # 補完してくれる
+    # エラー行に表示するマーク
+    # エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
 hook_add = '''
-    " シンボルカラムを表示したままにする
     let g:ale_sign_column_always = 1
-    " 保存時に整形してくれる
     let g:ale_fix_on_save = 1
-    " 補完してくれる
     let g:ale_completion_enabled = 1
-    " エラー行に表示するマーク
     let g:ale_sign_error = '⨉'
     let g:ale_sign_warning = '⚠'
-    " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 '''
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
+    # 隠しファイルを設定する
 hook_add = '''
-    " 隠しファイルを設定する
     let NERDTreeShowHidden = 1
 '''
 
 [[plugins]]
 repo = 'fatih/vim-go'
-on_ft = "go"
+on_ft = 'go'
+  # 以下、hook_addで設定している項目上から
+  # 保存時に必要なimportを自動的に挿入
+  # LSPに任せる機能をOFFにする
 hook_add = '''
-  " 保存時に必要なimportを自動的に挿入
-  let g:go_fmt_command = "goimports"
-  " LSPに任せる機能をOFFにする
+  let g:go_fmt_command = 'goimports'
   let g:go_def_mapping_enabled = 0
   let g:go_doc_keywordprg_enabled = 0
 '''
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
+on_ft = ['go', 'cpp']
 build = 'bash install.sh'
 rev = 'next'
+  # 以下、hook_add内から一時的に退避
+  # nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+  # nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+  # 以下、hook_add内に追加で、正常動作しない際のlog確認
+  # let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
 hook_add = '''
   set hidden
+  let g:LanguageClient_autoStart = 1
   let g:LanguageClient_serverCommands = {
-      \ 'go': ['gopls']
+      \ 'go': ['gopls'],
+      \ 'cpp': ['clangd']
       \ }
   let g:LanguageClient_loadSettings = 1
-  nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 '''
