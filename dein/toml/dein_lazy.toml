@@ -1,6 +1,9 @@
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-on_event = 'InsertCharPre'
+on_event = 'InsertEnter'
+#  inoremap <expr><tab> pumvisible() ? "\<C-n>" :
+#    \ neosnippet#expandable_or_jumpable() ?
+#    \    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 hook_source = '''
   let g:deoplete#enable_at_startup = 1
   call deoplete#custom#option({
@@ -21,14 +24,14 @@ hook_source = '''
 #  let g:deoplete#sources#clang#clang_header='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang'
 #'''
 
-[[plugins]]
-repo = 'Shougo/neoinclude.vim'
-on_ft = ['c', 'cpp']
-depends = 'deoplete.nvim'
+#[[plugins]]
+#repo = 'Shougo/neoinclude.vim'
+#on_ft = ['c', 'cpp']
+#depends = 'deoplete.nvim'
 
 [[plugins]]
 repo = 'w0rp/ale'
-on_ft = ['c', 'cpp','py', 'go']
+on_ft = ['cpp', 'go', 'python', 'ruby']
     # 以下、hook_addで設定している項目上から
     # シンボルカラムを表示したままにする
     # 保存時に整形してくれる
@@ -66,7 +69,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['go', 'cpp']
+on_ft = ['go', 'cpp', 'python', 'ruby']
 build = 'bash install.sh'
 rev = 'next'
   # 以下、hook_add内から一時的に退避
@@ -76,10 +79,14 @@ rev = 'next'
   # let g:LanguageClient_loggingFile = expand('~/.config/nvim/LanguageClient.log')
 hook_add = '''
   set hidden
+  noremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
   let g:LanguageClient_autoStart = 1
   let g:LanguageClient_serverCommands = {
       \ 'go': ['gopls'],
-      \ 'cpp': ['clangd']
+      \ 'cpp': ['clangd'],
+      \ 'python': ['pyls'],
+      \ 'ruby': ['solargraph']
       \ }
   let g:LanguageClient_loadSettings = 1
   let g:LanguageClient_diagnosticsEnable = 0

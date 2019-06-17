@@ -2,6 +2,7 @@
 let g:mapleader = "\<Space>"
 
 " Home / End
+" 遅いから削除検討
 noremap <Leader>h ^
 noremap <Leader>l $
 
@@ -28,7 +29,7 @@ augroup key_map
   autocmd FileType go nmap <leader>r <Plug>(go-run)
   autocmd FileType go nmap <leader>t <Plug>(go-test)
   autocmd FileType go nmap <leader>tf <Plug>(go-test-func)
-  autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+  autocmd FileType go nmap <leader>co <Plug>(go-coverage-toggle)
   autocmd FileType go nmap <leader>i <Plug>(go-info)
 augroup END
 
@@ -36,7 +37,7 @@ augroup END
 nnoremap <C-n> :NERDTreeToggle<CR>
 
 " vim-cheatsheet
-nnoremap <Leader>c :Cheat<CR>
+nnoremap <Leader>ch :Cheat<CR>
 
 " vim-gitgutter
 nnoremap <Leader>gg :GitGutterToggle<CR>
