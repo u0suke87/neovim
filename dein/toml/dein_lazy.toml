@@ -69,7 +69,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
-on_ft = ['go', 'cpp', 'python', 'ruby']
+on_ft = ['go', 'cpp', 'python', 'ruby', 'java']
 build = 'bash install.sh'
 rev = 'next'
   # 以下、hook_add内から一時的に退避
@@ -86,7 +86,23 @@ hook_add = '''
       \ 'go': ['gopls'],
       \ 'cpp': ['clangd'],
       \ 'python': ['pyls'],
-      \ 'ruby': ['solargraph']
+      \ 'ruby': ['solargraph'],
+      \ 'java': [
+      \ 'java',
+      \ '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044',
+      \ '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+      \ '-Dosgi.bundles.defaultStartLevel=4',
+      \ '-Declipse.product=org.eclipse.jdt.ls.core.product',
+      \ '-Dlog.protocol=true',
+      \ '-Dlog.level=ALL',
+      \ '-noverify',
+      \ '-Xmx1G',
+      \ '-jar',
+      \ expand('~/lsp/eclipse.jdt.ls/plugins/org.eclipse.equinox.launcher_1.5.300.v20190213-1655.jar'),
+      \ '-configuration',
+      \ expand('~/lsp/eclipse.jdt.ls/config_mac'),
+      \ '-data',
+      \ getcwd()]
       \ }
   let g:LanguageClient_loadSettings = 1
   let g:LanguageClient_diagnosticsEnable = 0
